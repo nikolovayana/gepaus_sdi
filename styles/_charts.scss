@@ -1,0 +1,15 @@
+.doughnut-container {
+    color: white;
+}
+
+.bar-container {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    height: 250px;
+    margin: 0 auto;
+
+    canvas {
+        max-height: 250px;
+    }
+}

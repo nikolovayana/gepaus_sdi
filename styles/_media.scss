@@ -1,0 +1,20 @@
+@use 'helpers';
+
+@use 'charts';
+@use 'map';
+
+@media (max-width: 920px) {
+    .doughnut-container {
+        margin: 0 auto;
+    }
+
+    .bar-container {
+        display: none;
+    }
+
+    .map-container {
+        width: 100%;
+        min-width: auto;
+        margin: 40px 20px;
+    }
+}

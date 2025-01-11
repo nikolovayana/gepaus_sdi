@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width", initial-sacale="1.0">
+        <title>University Map</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="styles/styles.css" />
+        <script src="app.js"></script>
+    </head>
+    <body>
+        <div class="page-container">
+            <div class="navbar">
+                <div class="logo"></div>
+                <div class="links-container">
+                    <div>
+                        <a href="overview.html">Overview</a>
+                    </div>
+                    <div>
+                        <a href="index.html">Map</a>
+                    </div>
+                </div>
+            </div>
+            <div class="map-wrapper">
+                <div id="map" class="map-container"></div>
+                <div>
+                    <form>
+                        <input type="text">
+                    </form>
+                    <div class="doughnut-container">
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="bar-container">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+        <script>
+            document.querySelectorAll("a").forEach((link) => {
+                if (window.location.href === link.href) {
+                    link.parentElement.classList.add("active");
+                }
+            })
+        </script>
+    </body>
+</html>

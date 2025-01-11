@@ -1,0 +1,38 @@
+@use 'helpers';
+
+.links-container {
+    @extend %max;
+    display: flex;
+    justify-content: right;
+
+    div {
+        @extend %flex-center;
+        height: 100%;
+        width: 100px;
+        transition: 0.15s;
+
+        &:hover {
+            background-color: helpers.$main_color;
+            cursor: pointer;
+
+            a {
+                transform: scale(1.2);
+            }
+        }
+
+    }
+    
+    a {
+        color: white;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+}
+
+.active {
+    background-color: helpers.$main_color;
+
+    a {
+        transform: scale(1.2);
+    }
+}
