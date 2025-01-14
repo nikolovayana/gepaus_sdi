@@ -22,15 +22,19 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(data => {
             // Convert the WFS response (GeoJSON) into a Leaflet layer
-            const wfsLayer = L.geoJSON(data);
+            console.log(data)
+            const wfsLayer = L.geoJSON(data, {
+              onEachFeature: (feature, layer) => {
+                layer.on("click", () => {
+                  updateCharts(feature.properties);
+                })
+              }
+            })
             
             // Add the layer to the map
             wfsLayer.addTo(map);
         })
         .catch(error => console.error('Error fetching WFS data:', error));
-
-
-
     
     
     const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
@@ -95,4 +99,9 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
     });
+
+    function updateCharts(properties) {
+      doughnutChart.data.datasets[0].data = [properties.all_studies_m, properties.all_studies_f];
+      doughnutChart.update();
+    }
 })
