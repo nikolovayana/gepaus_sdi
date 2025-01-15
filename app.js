@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const map = L.map('map').setView([47.5, 13.5], 7); // Center Austria
-    let percent = 20;
+    let percent = 0;
     
     // Define the WFS URL
     const wfsUrl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT24/wfs';
@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
     const select = document.querySelector('#option');
+    const uni = document.querySelector('#university');
     fetchData(wfsParams, select.value);
 
     select.onchange = function() {
@@ -40,10 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
             responsive: true,
             plugins: {
             legend: {
-                position: 'top',
+                position: 'bottom',
                 labels: {
-                color: 'white'
+                    color: 'white',
                 }
+                // display: false
             }
             }
         },
@@ -60,9 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 ctx.fillStyle = "white";
                 ctx.textBaseline = 'middle';
     
-                const text = percent.toString() + "%"; // Your central text
+                const text = percent + "%"; // Your central text
                 const textX = Math.round((width - ctx.measureText(text).width) / 2);
-                const textY = height / 1.8;
+                const textY = height / 2.5;
     
                 ctx.fillText(text, textX, textY);
                 ctx.restore();
@@ -74,21 +76,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const barChart = new Chart(barCtx, {
         type: 'bar',
         data: {
-            labels: ["University 1", "University 2", '3', '4', '5', '6', '7', '8', '9', '10'], // University names (to be updated dynamically)
+            labels: ["Architecture", "Biological science", 'Environment', 'Manufacturing', 'Mathematics', 'Physical science', 'Software development'],
             datasets: [
             {
                 label: 'Male Students',
                 data: [80, 55], // Male student counts (to be updated dynamically)
                 backgroundColor: '#36a2eb',
                 borderColor: '#388E3C',
-                borderWidth: 1
+                borderWidth: 1,
+                barThickness: 15
             },
             {
                 label: 'Female Students',
                 data: [20, 45], // Female student counts (to be updated dynamically)
                 backgroundColor: '#ff6384',
                 borderColor: '#FFA000',
-                borderWidth: 1
+                borderWidth: 1,
+                barThickness: 15
             }
             ]
         },
@@ -105,7 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             plugins: {
             legend: {
-                position: 'top'
+                position: 'bottom',
+                display: false
             }
             }
         }
@@ -114,14 +119,14 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateCharts(properties, male, female) {
       
       if (properties == undefined) {
-        percent = Math.round(calculatePercent(male, female));
+        countTo(Math.round(calculatePercent(male, female)), all=true);
         doughnutChart.data.datasets[0].data = [male, female];
         doughnutChart.plugins
         doughnutChart.update();
         return;
     }
     
-    percent = Math.round(calculatePercent(properties.all_studies_m, properties.all_studies_f));
+    countTo(Math.round(calculatePercent(properties.all_studies_m, properties.all_studies_f)));
     doughnutChart.data.datasets[0].data = [properties.all_studies_m, properties.all_studies_f];
     doughnutChart.update();
 
@@ -149,19 +154,45 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(wfsUrl + '?' + new URLSearchParams(params).toString())
         .then(response => response.json())
         .then(data => {
-            // Convert the WFS response (GeoJSON) into a Leaflet layer
+            
             let [male, female] = calculate(data.features);
             console.log(data)
+            
             updateCharts(undefined, male, female);
+            
+            data.features.forEach((feature, index) => {
+                const option = document.createElement("option");
+                option.innerHTML = feature.properties.university.toString();
+                option.value = index;
+                uni.appendChild(option);
+            })
+
+            uni.onchange = function() {
+                if (this.value === 'none') {
+                    updateCharts(undefined, male, female);
+                    return;
+                }
+                updateCharts(data.features[this.value].properties, undefined, undefined);
+            }
+
             document.querySelector("#all").addEventListener("click", () => {
                 updateCharts(undefined, male, female);  
             });
     
             const wfsLayer = L.geoJSON(data, {
                 onEachFeature: (feature, layer) => {
-                layer.on("click", () => {
-                    updateCharts(feature.properties);
-                })
+                
+                    layer.on("click", () => {
+                        updateCharts(feature.properties);
+                    });
+
+                    layer.on("mouseover", (e) => {
+                        layer.bindPopup(feature.properties.university).openPopup();
+                        })
+
+                    layer.on("mouseout", () => {
+                        layer.bindPopup(feature.properties.university).closePopup();
+                    })
                 }
             })
             
@@ -184,7 +215,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function calculatePercent(male, female) {
-          let percent = (female / (female + male)) * 100;
-          return percent;
+        if (male === 0 || female === 0) {
+            return 0;
+        }
+        let percent = (female / (female + male)) * 100;
+        return percent;
+    }
+
+    function countTo(number, all=false) {
+        clearInterval(this.id);
+        if (percent === "no data") {
+            percent = 0;
+        }
+
+        if (number === 0) {
+            percent = "no data"
+        }
+
+
+        this.id = setInterval(function () {
+            if (number > percent) {
+                percent += 1;
+            }
+            else if (number < percent) {
+                percent -= 1;
+            }
+
+            if (percent === number) {
+                clearInterval(this.id);
+                console.log(percent)
+                console.log(number)
+            }
+
+        }, 20)
     }
 })

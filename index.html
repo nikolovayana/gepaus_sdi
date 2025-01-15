@@ -3,6 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width", initial-sacale="1.0">
         <title>University Map</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -15,34 +16,56 @@
                 <div class="logo"></div>
                 <div class="links-container">
                     <div>
-                        <a href="overview.html">Overview</a>
+                        <span class="material-icons">home</span>
+                        <a href="overview.html">Home</a>
                     </div>
                     <div>
-                        <a href="index.html">Map</a>
+                        <span class="material-icons">dashboard</span>
+                        <a href="index.html">Dashboard</a>
                     </div>
                 </div>
             </div>
-            <div class="map-wrapper">
-                <div id="map" class="map-container"></div>
-                <div>
-                    <form>
-                        <label for="semester">Select semester of study:</label>
-                        <select id="option" name="select">
-                            <option value="IPSDI_WT24:sem_w_2003_2004_wfs">semester 2003/2004</option>
-                            <option value="IPSDI_WT24:sem_w_2013_2014_wfs">semester 2013/2014</option>
-                            <option value="IPSDI_WT24:sem_w_2023_2024_wfs">semester 2023/2024</option>
-                        </select>
-                    </form>
-                    <button id="all">See all</button>
-                    <div class="doughnut-container">
-                        <canvas id="doughnutChart"></canvas>
+            <div class="main-container">
+                <div class="media-container">
+                    <div class="form-container">
+                        <form>
+                            <div>
+                                <label for="option">Select semester of study:</label>
+                            </div>
+                            <select id="option" name="select">
+                                <option value="IPSDI_WT24:sem_w_2003_2004_wfs">semester 2003/2004</option>
+                                <option value="IPSDI_WT24:sem_w_2013_2014_wfs">semester 2013/2014</option>
+                                <option value="IPSDI_WT24:sem_w_2023_2024_wfs">semester 2023/2024</option>
+                            </select>
+                            <p>And</p>
+                            <div>
+                                <label for="university">Select a university:</label>
+                            </div>
+                            <select id="university" name="university">
+                                <option value="none">Choose...</option>
+                            </select>
+                            <p>Or</p>
+                            <p>Simply click on the map</p>
+                        </form>
+                        <button id="all">See for all universities</button>
+                    </div>
+                </div>
+                <div class="dashboard">
+                    <div class="map-wrapper">
+                        <div id="map" class="map-container"></div>
+                    </div>
+                    <div class="charts-container">
+                        <div class="doughnut-container">
+                            <canvas id="doughnutChart"></canvas>
+                        </div>
+                        <div class="bar-container">
+                            <canvas id="barChart" width="300" height="250"></canvas>
+                        </div>
+    
                     </div>
                 </div>
             </div>
-            <div class="bar-container">
-                <canvas id="barChart"></canvas>
-            </div>
-        </div>
+        </div> 
         <script>
             document.querySelectorAll("a").forEach((link) => {
                 if (window.location.href === link.href) {
