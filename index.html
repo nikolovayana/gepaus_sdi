@@ -26,8 +26,14 @@
                 <div id="map" class="map-container"></div>
                 <div>
                     <form>
-                        <input type="text">
+                        <label for="semester">Select semester of study:</label>
+                        <select id="option" name="select">
+                            <option value="IPSDI_WT24:sem_w_2003_2004_wfs">semester 2003/2004</option>
+                            <option value="IPSDI_WT24:sem_w_2013_2014_wfs">semester 2013/2014</option>
+                            <option value="IPSDI_WT24:sem_w_2023_2024_wfs">semester 2023/2024</option>
+                        </select>
                     </form>
+                    <button id="all">See all</button>
                     <div class="doughnut-container">
                         <canvas id="doughnutChart"></canvas>
                     </div>

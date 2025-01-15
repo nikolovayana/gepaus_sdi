@@ -111,5 +111,8 @@ form {
   justify-content: center;
   margin-bottom: 170px;
 }
+form label {
+  color: white;
+}
 
 /*# sourceMappingURL=styles.css.map */
