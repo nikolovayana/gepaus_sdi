@@ -40,22 +40,20 @@
                                 <option value="IPSDI_WT24:sem_w_2013_2014_wfs">semester 2013/2014</option>
                                 <option value="IPSDI_WT24:sem_w_2023_2024_wfs">semester 2023/2024</option>
                             </select>
-                            <p>And</p>
                             <div>
-                                <label for="university">Select a university:</label>
+                                <label for="university">And select a university:</label>
                             </div>
                             <select id="university" name="university">
                                 <option value="none">Choose...</option>
                             </select>
-                            <p>Or</p>
-                            <p>Simply click on the map</p>
+                            <p>Or simply click on the map</p>
                             <button id="all">See for all universities</button>
                         </form>
                     </div>
                     <div class="post-container">
                         <div class="post">
                             <p><b>Gepaus Project</b> @projectGepaus: a moment ago</p>
-                            <p>
+                            <p class="text">
                                 "Whoa, 🚨 only {female_percentage}% of STEM students at 
                                 {university_name} are women?! Looks like this place could 
                                 use a serious girl-power upgrade. 🌟 Time to smash some 
@@ -77,19 +75,12 @@
                             <canvas id="doughnutChart"></canvas>
                         </div>
                         <div class="bar-container">
-                            <canvas id="barChart" width="300" height="250"></canvas>
+                            <canvas id="barChart" width="300" height="230"></canvas>
                         </div>
     
                     </div>
                 </div>
             </div>
         </div> 
-        <script>
-            document.querySelectorAll("a").forEach((link) => {
-                if (window.location.href === link.href) {
-                    link.parentElement.classList.add("active");
-                }
-            })
-        </script>
     </body>
 </html>

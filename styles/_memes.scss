@@ -2,7 +2,12 @@
 
 .post {
     color: white;
+    font-size: 10px;
 
+}
+
+.text {
+    font-size: 12px;
 }
 
 .meme-container {
@@ -11,7 +16,7 @@
 
     img {
         @extend %max;
-        max-height: 300px;
+        max-height: 250px;
         object-fit: contain;
         object-position: center;
     }

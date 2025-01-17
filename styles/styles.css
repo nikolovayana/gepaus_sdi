@@ -62,7 +62,7 @@ form button:hover {
 }
 
 .form-container {
-  height: 320px;
+  height: 220px;
   border-bottom: 1px solid white;
 }
 
@@ -95,13 +95,18 @@ form button {
 }
 .post {
   color: white;
+  font-size: 10px;
+}
+
+.text {
+  font-size: 12px;
 }
 
 .meme-container {
   margin: 0 auto;
 }
 .meme-container img {
-  max-height: 300px;
+  max-height: 250px;
   object-fit: contain;
   object-position: center;
 }
@@ -126,11 +131,10 @@ form button {
   justify-content: space-evenly;
   max-width: 600px;
   height: 40%;
-  padding-top: 20px;
 }
 
 .doughnut-container {
-  height: 250px;
+  height: 220px;
   padding-top: 20px;
   padding-left: 20px;
 }
