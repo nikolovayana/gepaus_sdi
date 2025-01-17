@@ -106,7 +106,7 @@ form button {
   margin: 0 auto;
 }
 .meme-container img {
-  max-height: 250px;
+  max-height: 220px;
   object-fit: contain;
   object-position: center;
 }
@@ -221,7 +221,7 @@ body {
 
 .main-container {
   width: 100%;
-  height: calc(100% - 35px);
+  height: calc(90% - 35px);
   display: flex;
 }
 

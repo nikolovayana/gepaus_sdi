@@ -34,9 +34,8 @@ body {
 
 .main-container {
     width: 100%;
-    height: calc(100% - helpers.$navbar-height);
-    display: flex;
-    
+    height: calc(90% - helpers.$navbar-height);
+    display: flex;    
 }
 
 .media-responsive {
