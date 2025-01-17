@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const map = L.map('map').setView([47.5, 13.5], 7); // Center Austria
+    const map = L.map('map').setView([47.5, 13.5], 6); // Center Austria
     let percent = 0;
     let memeIndex = 0;
     
@@ -192,7 +192,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateCharts(data.features[this.value].properties, undefined, undefined);
             }
 
-            document.querySelector("#all").addEventListener("click", () => {
+            document.querySelector("#all").addEventListener("click", (event) => {
+                event.preventDefault();
                 updateCharts(undefined, male, female);  
             });
     

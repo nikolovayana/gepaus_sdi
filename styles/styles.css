@@ -223,6 +223,8 @@ body {
   width: 100%;
   height: calc(90% - 35px);
   display: flex;
+  padding-top: 20px;
+  box-sizing: border-box;
 }
 
 .media-responsive {
