@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const barChart = new Chart(barCtx, {
         type: 'bar',
         data: {
-            labels: ["Architecture", "Biological science", 'Environment', 'Manufacturing', 'Mathematics', 'Physical science', 'Software development'],
+            labels: ["Architecture", "Biological science", 'Environment', 'Manufacturing', 'Mathematics', 'Physical science', 'Software dev.'],
             datasets: [
             {
                 label: 'Male Students',
