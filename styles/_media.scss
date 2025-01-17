@@ -3,7 +3,7 @@
 @use 'charts';
 @use 'map';
 
-@media (max-width: 920px) {
+@media (max-width: 670px) {
     .doughnut-container {
         margin: 0 auto;
     }
@@ -13,8 +13,47 @@
     }
 
     .map-container {
-        width: 100%;
         min-width: auto;
-        margin: 40px 20px;
+    }
+
+}
+
+@media (max-width: 980px) {
+
+    .media-container {
+        display: none;
+    }
+
+    .media-responsive {
+        display: flex !important;
+        z-index: 9999;
+        position: fixed;
+        background-color: white;
+        height: 100%;
+        width: 300px;
+    }
+
+    .charts-container {
+        margin: helpers.$center;
+    }
+}
+
+@media (min-width: 1200px) {
+    form {
+        width: 450px;
+        
+        select {
+            min-width: 450px;
+            width: 90%;
+        }
+
+        button {
+            min-width: 450px;
+            width: 90%
+        }
+    }
+
+    .charts-container {
+        margin: helpers.$center;
     }
 }

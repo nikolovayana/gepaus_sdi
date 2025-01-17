@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const map = L.map('map').setView([47.5, 13.5], 7); // Center Austria
     let percent = 0;
+    let memeIndex = 0;
     
     // Define the WFS URL
     const wfsUrl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT24/wfs';
@@ -123,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         doughnutChart.data.datasets[0].data = [male, female];
         doughnutChart.plugins
         doughnutChart.update();
+        getNextMeme();
         return;
     }
     
@@ -144,6 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
       properties.software_and_applications_development_f
     ]
     barChart.update();
+    getNextMeme();
     }
     
     function fetchData(params, typeName){
@@ -248,5 +251,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
         }, 20)
+    }
+
+    function getNextMeme() {
+        let meme = document.querySelector("#meme");
+        let half1 = meme.getAttribute("src").split("/")[0];
+        let number = Math.floor(Math.random() * 25);
+        if (number === memeIndex) {
+          number++;
+        }
+        meme.setAttribute("src", half1 + '/' + number.toString() + "_image.jpg");
+        memeIndex = number;
+
+        let number2 = Math.floor(Math.random() * 3); 
     }
 })

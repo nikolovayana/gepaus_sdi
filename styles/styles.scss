@@ -2,6 +2,7 @@
 
 @use 'navbar';
 @use 'form';
+@use 'memes';
 @use 'map';
 @use 'charts';
 @use 'media';
@@ -36,6 +37,10 @@ body {
     height: calc(100% - helpers.$navbar-height);
     display: flex;
     
+}
+
+.media-responsive {
+    display: none;
 }
 
 .media-container {

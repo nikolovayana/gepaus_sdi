@@ -1,4 +1,4 @@
-.links-container {
+.meme-container, .meme-container img, .links-container {
   width: 100%;
   height: 100%;
 }
@@ -9,7 +9,7 @@
   align-items: center;
 }
 
-.form-container button, form select {
+form select, form button {
   width: 300px;
   height: 35px;
   border: none;
@@ -17,7 +17,7 @@
   padding-left: 5px;
 }
 
-.form-container button:hover, form select:hover {
+form button:hover {
   color: white;
   background: linear-gradient(to right, #212121, #999);
   box-shadow: 5px 5px 20px 0;
@@ -62,14 +62,13 @@
 }
 
 .form-container {
-  height: 350px;
+  height: 320px;
   border-bottom: 1px solid white;
 }
-.form-container button {
-  background-color: #d3d3d3;
-}
+
 form {
-  padding-top: 30px;
+  width: 300px;
+  margin: 0 auto;
 }
 form div {
   color: white;
@@ -82,13 +81,29 @@ form select {
   background-color: #d3d3d3;
 }
 form select:hover {
-  color: black;
+  border: 1px solid white;
+  opacity: 0.5;
 }
 form select option {
   background-color: #d3d3d3;
 }
 form select option:hover {
   cursor: pointer;
+}
+form button {
+  background-color: #d3d3d3;
+}
+.post {
+  color: white;
+}
+
+.meme-container {
+  margin: 0 auto;
+}
+.meme-container img {
+  max-height: 300px;
+  object-fit: contain;
+  object-position: center;
 }
 
 .map-wrapper {
@@ -132,7 +147,7 @@ form select option:hover {
   margin: auto 0;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 670px) {
   .doughnut-container {
     margin: 0 auto;
   }
@@ -140,9 +155,39 @@ form select option:hover {
     display: none;
   }
   .map-container {
-    width: 100%;
     min-width: auto;
-    margin: 40px 20px;
+  }
+}
+@media (max-width: 980px) {
+  .media-container {
+    display: none;
+  }
+  .media-responsive {
+    display: flex !important;
+    z-index: 9999;
+    position: fixed;
+    background-color: white;
+    height: 100%;
+    width: 300px;
+  }
+  .charts-container {
+    margin: 0 auto;
+  }
+}
+@media (min-width: 1200px) {
+  form {
+    width: 450px;
+  }
+  form select {
+    min-width: 450px;
+    width: 90%;
+  }
+  form button {
+    min-width: 450px;
+    width: 90%;
+  }
+  .charts-container {
+    margin: 0 auto;
   }
 }
 @font-face {
@@ -173,6 +218,10 @@ body {
   width: 100%;
   height: calc(100% - 65px);
   display: flex;
+}
+
+.media-responsive {
+  display: none;
 }
 
 .media-container {

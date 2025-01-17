@@ -1,21 +1,13 @@
 @use 'helpers';
 
 .form-container {
-    height: 350px;
+    height: 320px;
     border-bottom: 1px solid white;
-
-    button {
-        @extend %fields;
-        background-color: helpers.$select-color;
-        
-        &:hover {
-            @extend %hover;
-        }
-    }
 }
 
-form {
-    padding-top: 30px;
+form { 
+    width: 300px;
+    margin: helpers.$center;
     
     div {
         color: helpers.$font-color;
@@ -31,8 +23,8 @@ form {
         background-color: helpers.$select-color;
 
         &:hover {
-            @extend %hover;
-            color: black;
+            border: 1px solid white;
+            opacity: 0.5;
         }
 
         option {
@@ -44,4 +36,12 @@ form {
         }
     }
 
+    button {
+        @extend %fields;
+        background-color: helpers.$select-color;
+        
+        &:hover {
+            @extend %hover;
+        }
+    }
 }
