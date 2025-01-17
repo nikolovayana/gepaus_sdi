@@ -8,7 +8,8 @@
     div {
         @extend %flex-center;
         height: 100%;
-        width: 100px;
+        width: 120px;
+        margin-right: 20px;
         transition: 0.15s;
 
         &:hover {
@@ -20,6 +21,10 @@
             }
         }
 
+    }
+
+    span {
+        padding-right: 10px;
     }
     
     a {
@@ -35,4 +40,8 @@
     a {
         transform: scale(1.2);
     }
+}
+
+.material-icons {
+    color: white;
 }

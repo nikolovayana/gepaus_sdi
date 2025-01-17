@@ -1,0 +1,18 @@
+@use 'helpers';
+
+.post {
+    color: white;
+
+}
+
+.meme-container {
+    @extend %max;
+    margin: helpers.$center;
+
+    img {
+        @extend %max;
+        max-height: 300px;
+        object-fit: contain;
+        object-position: center;
+    }
+}

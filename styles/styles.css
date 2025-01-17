@@ -1,4 +1,4 @@
-.links-container {
+.meme-container, .meme-container img, .links-container {
   width: 100%;
   height: 100%;
 }
@@ -9,13 +9,29 @@
   align-items: center;
 }
 
+form select, form button {
+  width: 300px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  padding-left: 5px;
+}
+
+form button:hover {
+  color: white;
+  background: linear-gradient(to right, #212121, #999);
+  box-shadow: 5px 5px 20px 0;
+  cursor: pointer;
+}
+
 .links-container {
   display: flex;
   justify-content: right;
 }
 .links-container div {
   height: 100%;
-  width: 100px;
+  width: 120px;
+  margin-right: 20px;
   transition: 0.15s;
 }
 .links-container div:hover {
@@ -24,6 +40,9 @@
 }
 .links-container div:hover a {
   transform: scale(1.2);
+}
+.links-container span {
+  padding-right: 10px;
 }
 .links-container a {
   color: white;
@@ -38,17 +57,82 @@
   transform: scale(1.2);
 }
 
+.material-icons {
+  color: white;
+}
+
+.form-container {
+  height: 320px;
+  border-bottom: 1px solid white;
+}
+
+form {
+  width: 300px;
+  margin: 0 auto;
+}
+form div {
+  color: white;
+  margin: 5px;
+}
+form p {
+  color: white;
+}
+form select {
+  background-color: #d3d3d3;
+}
+form select:hover {
+  border: 1px solid white;
+  opacity: 0.5;
+}
+form select option {
+  background-color: #d3d3d3;
+}
+form select option:hover {
+  cursor: pointer;
+}
+form button {
+  background-color: #d3d3d3;
+}
+.post {
+  color: white;
+}
+
+.meme-container {
+  margin: 0 auto;
+}
+.meme-container img {
+  max-height: 300px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.map-wrapper {
+  height: calc(60% - 20px);
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
 .map-container {
-  width: 60%;
+  width: 100%;
   min-width: 600px;
-  max-width: 750px;
+  max-width: 950px;
   height: 100%;
   max-height: 500px;
-  background-color: white;
+  margin: 0 auto;
+}
+
+.charts-container {
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 600px;
+  height: 40%;
+  padding-top: 20px;
 }
 
 .doughnut-container {
-  color: white;
+  height: 250px;
+  padding-top: 20px;
+  padding-left: 20px;
 }
 
 .bar-container {
@@ -57,12 +141,13 @@
   width: 70%;
   height: 250px;
   margin: 0 auto;
+  padding-top: 20PX;
 }
 .bar-container canvas {
-  max-height: 250px;
+  margin: auto 0;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 670px) {
   .doughnut-container {
     margin: 0 auto;
   }
@@ -70,16 +155,52 @@
     display: none;
   }
   .map-container {
-    width: 100%;
     min-width: auto;
-    margin: 40px 20px;
   }
+}
+@media (max-width: 980px) {
+  .media-container {
+    display: none;
+  }
+  .media-responsive {
+    display: flex !important;
+    z-index: 9999;
+    position: fixed;
+    background-color: white;
+    height: 100%;
+    width: 300px;
+  }
+  .charts-container {
+    margin: 0 auto;
+  }
+}
+@media (min-width: 1200px) {
+  form {
+    width: 450px;
+  }
+  form select {
+    min-width: 450px;
+    width: 90%;
+  }
+  form button {
+    min-width: 450px;
+    width: 90%;
+  }
+  .charts-container {
+    margin: 0 auto;
+  }
+}
+@font-face {
+  font-family: Roboto;
+  src: url(Roboto-Regular.ttf);
+  font-weight: 400;
 }
 body {
   height: 100vh;
   margin: 0;
   padding: 0;
   background-color: #212121;
+  font-family: Roboto, ariel, sans-serif;
 }
 
 .page-container {
@@ -89,27 +210,28 @@ body {
 .navbar {
   display: flex;
   width: 100%;
-  height: 35px;
-  background-color: #353535;
+  height: 65px;
+  background: linear-gradient(black, black, #212121);
 }
 
-.map-wrapper {
-  display: flex;
-  flex-direction: row-reverse;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: center;
-  height: calc(100% - 400px);
-  min-height: 580px;
+.main-container {
   width: 100%;
-  margin: auto 0;
+  height: calc(100% - 65px);
+  display: flex;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 170px;
+.media-responsive {
+  display: none;
+}
+
+.media-container {
+  width: 40%;
+  border-right: 1px solid white;
+  margin-left: 25px;
+}
+
+.dashboard {
+  flex-grow: 1;
 }
 
 /*# sourceMappingURL=styles.css.map */

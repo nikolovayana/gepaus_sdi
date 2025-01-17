@@ -1,9 +1,14 @@
+.map-wrapper {
+    height: calc(60% - 20px);
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
 .map-container {
-    width: 60%;
+    width: 100%;
     min-width: 600px;
-    max-width: 750px;
+    max-width: 950px;
     height: 100%;
     max-height: 500px;
-    background-color: white;
-    // margin: 0 auto;
+    margin: 0 auto;
 }
