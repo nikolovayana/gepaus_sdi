@@ -19,6 +19,7 @@ body {
     padding: 0;
     background-color: helpers.$main_color;
     font-family: Roboto, ariel, sans-serif;
+    overflow: hidden;
 }
 
 .page-container {
@@ -34,7 +35,7 @@ body {
 
 .main-container {
     width: 100%;
-    height: calc(90% - helpers.$navbar-height);
+    height: calc(100% - helpers.$navbar-height);
     display: flex;
     padding-top: 20px;
     box-sizing: border-box;
@@ -46,6 +47,7 @@ body {
 
 .media-container {
     width: 40%;
+    max-width: 550px;
     border-right: 1px solid white;
     margin-left: 25px;
 }

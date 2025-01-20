@@ -2,15 +2,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const map = L.map('map').setView([47.5, 13.5], 6); // Center Austria
     let percent = 0;
     let memeIndex = 0;
+    let clickedLayer;
+    let isOptionsCreated = false;
+    const select = document.querySelector('#option');
+    const uni = document.querySelector('#university');
+    const postElement = document.querySelector(".text");
     
     // Define the WFS URL
     const wfsUrl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT24/wfs';
-
+    
     // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //     maxZoom: 19
-    // }).addTo(map);
-
-    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.{ext}', {
+        //     maxZoom: 19
+        // }).addTo(map);
+        
+        L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.{ext}', {
       minZoom: 0,
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -23,22 +28,33 @@ document.addEventListener("DOMContentLoaded", () => {
     //   maxZoom: 19,
     //   ext: 'png'
     // }).addTo(map);
-
+    
     const wfsParams = {
-      service: 'WFS',
-      version: '1.1.0',
-      request: 'GetFeature',
-      typeName: '',
-      outputFormat: 'application/json', // Request GeoJSON format
-  };
-
-    const select = document.querySelector('#option');
-    const uni = document.querySelector('#university');
-    fetchData(wfsParams, select.value);
-
-    select.onchange = function() {
-      fetchData(wfsParams, this.value);
+        service: 'WFS',
+        version: '1.1.0',
+        request: 'GetFeature',
+        typeName: '',
+        outputFormat: 'application/json', // Request GeoJSON format
     };
+    
+    fetchData(wfsParams, select.value);
+    
+    select.onchange = function() {
+        if (clickedLayer) {
+            clickedLayer.closePopup();
+            clickedLayer = undefined;
+        }
+        uni.value = "none";
+        fetchData(wfsParams, this.value);
+    };
+
+    map.on("click", () => {
+        if (clickedLayer) {
+            clickedLayer = undefined;
+            uni.value = "none";
+            fetchData(wfsParams, select.value);
+        }
+    })
 
     const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
     const doughnutChart = new Chart(doughnutCtx, {
@@ -133,110 +149,162 @@ document.addEventListener("DOMContentLoaded", () => {
     
     function updateCharts(properties, male, female) {
       
-      if (properties == undefined) {
-        countTo(Math.round(calculatePercent(male, female)), all=true);
-        doughnutChart.data.datasets[0].data = [male, female];
-        doughnutChart.plugins
-        doughnutChart.update();
+        if (male != undefined) {
+            countTo(Math.round(calculatePercent(male, female)), all=true);
+            doughnutChart.data.datasets[0].data = [male, female];
+            doughnutChart.plugins
+            doughnutChart.update();
+        }
+        else {
+            countTo(Math.round(calculatePercent(properties.all_studies_m, properties.all_studies_f)));
+            doughnutChart.data.datasets[0].data = [properties.all_studies_m, properties.all_studies_f];
+            doughnutChart.update();
+        }
+        
+
+        barChart.data.datasets[0].data = [
+        properties.architecture_m, properties.biological_sciences_m,
+        properties.environment_m, properties.manufacturing_and_processing_m,
+        properties.natural_methematics_statistics_m, properties.physical_sciences_m,
+        properties.software_and_applications_development_m
+        ]
+
+        barChart.data.datasets[1].data = [
+        properties.architecture_f, properties.biological_sciences_f,
+        properties.environment_f, properties.manufacturing_and_processing_f,
+        properties.natural_methematics_statistics_f, properties.physical_sciences_f,
+        properties.software_and_applications_development_f
+        ]
+        barChart.update();
         getNextMeme();
-        return;
-    }
-    
-    countTo(Math.round(calculatePercent(properties.all_studies_m, properties.all_studies_f)));
-    doughnutChart.data.datasets[0].data = [properties.all_studies_m, properties.all_studies_f];
-    doughnutChart.update();
-
-    barChart.data.datasets[0].data = [
-      properties.architecture_m, properties.biological_science_m,
-      properties.environments_m, properties.manufacturing_and_processing_m,
-      properties.natural_methematics_statistics_m, properties.physical_sciences_m,
-      properties.software_and_applications_development_m
-    ]
-
-    barChart.data.datasets[1].data = [
-      properties.architecture_f, properties.biological_science_f,
-      properties.environments_f, properties.manufacturing_and_processing_f,
-      properties.natural_methematics_statistics_f, properties.physical_sciences_f,
-      properties.software_and_applications_development_f
-    ]
-    barChart.update();
-    getNextMeme();
     }
     
     function fetchData(params, typeName){
-    
-    params.typeName = typeName;
-    
-    // Make the WFS request and handle the response
-    fetch(wfsUrl + '?' + new URLSearchParams(params).toString())
-        .then(response => response.json())
-        .then(data => {
-            
-            let [male, female] = calculate(data.features);
-            console.log(data)
-            
-            updateCharts(undefined, male, female);
-            
-            data.features.forEach((feature, index) => {
-                const option = document.createElement("option");
-                option.innerHTML = feature.properties.university.toString();
-                option.value = index;
-                uni.appendChild(option);
-            })
-
-            uni.onchange = function() {
-                if (this.value === 'none') {
-                    updateCharts(undefined, male, female);
-                    return;
-                }
-                updateCharts(data.features[this.value].properties, undefined, undefined);
-            }
-
-            document.querySelector("#all").addEventListener("click", (event) => {
-                event.preventDefault();
-                updateCharts(undefined, male, female);  
-            });
-    
-            const wfsLayer = L.geoJSON(data, {
-                onEachFeature: (feature, layer) => {
+        params.typeName = typeName;
+        
+        // Make the WFS request and handle the response
+        fetch(wfsUrl + '?' + new URLSearchParams(params).toString())
+            .then(response => response.json())
+            .then(data => {
                 
-                    layer.on("click", () => {
-                        updateCharts(feature.properties);
-                    });
+                let [male, female, students] = calculate(data.features);
+                
+                updateCharts(students, male, female);
 
-                    layer.on("mouseover", (e) => {
-                        layer.bindPopup(feature.properties.university).openPopup();
-                        })
-
-                    layer.on("mouseout", () => {
-                        layer.bindPopup(feature.properties.university).closePopup();
+                if (!isOptionsCreated) {
+                    isOptionsCreated = true;
+                    data.features.forEach((feature, index) => {
+                        const option = document.createElement("option");
+                        option.innerHTML = feature.properties.university;
+                        option.value = index.toString();
+                        uni.appendChild(option);
                     })
+                }                
+
+                document.querySelector("#all").addEventListener("click", (event) => {
+                    event.preventDefault();
+                    uni.value = "none";
+                    if (clickedLayer) {
+                        clickedLayer.closePopup();
+                        clickedLayer = undefined;
+                    }  
+                    updateCharts(students, male, female);
+                });
+        
+                const wfsLayer = L.geoJSON(data, {
+                    onEachFeature: (feature, layer) => {
+
+                        layer.bindPopup(feature.properties.university, options={autoClose: false});
+                    
+                        layer.on("click", () => {
+                            
+                            let option = Array.from(uni.options).find(option => option.text === feature.properties.university)
+                            if (option) {
+                                uni.value = option.value;
+                            }
+                            layer.openPopup();
+                            if (clickedLayer) {
+                                clickedLayer.closePopup();
+                            }
+                            clickedLayer = layer;
+                            updateCharts(feature.properties);
+                        });
+
+                        layer.on("mouseover", () => {
+                            layer.openPopup();
+                            })
+
+                        layer.on("mouseout", () => {
+                            if (clickedLayer != layer) {
+                                layer.closePopup();
+                            }
+                        })
+                    }
+                })
+
+                uni.onchange = function() {
+                    if (this.value === 'none') {
+                        updateCharts(undefined, male, female);
+                        if (clickedLayer) {
+                            clickedLayer.closePopup();
+                            clickedLayer = undefined;
+                        }
+                        return;
+                    }
+                    updateCharts(data.features[Number(this.value)].properties, undefined, undefined);
+                    const layers = wfsLayer.getLayers();
+                    layers[Number(this.value)].openPopup();
+                    if (clickedLayer) {
+                        clickedLayer.closePopup();
+                    }
+                    clickedLayer = layers[Number(this.value)];
                 }
-            })
-            
-            // Add the layer to the map
-            wfsLayer.addTo(map);
-            })
-            .catch(error => console.error('Error fetching WFS data:', error));
+                
+                // Add the layer to the map
+                wfsLayer.addTo(map);
+                })
+                .catch(error => console.error('Error fetching WFS data:', error));
     }
     
     function calculate(object) {
     let male = 0;
     let female = 0;
+    const students = {
+        architecture_f: 0,
+        architecture_m: 0,
+        biological_sciences_f: 0,
+        biological_sciences_m: 0,
+        environment_f: 0,
+        environment_m: 0,
+        manufacturing_and_processing_f: 0,
+        manufacturing_and_processing_m: 0,
+        natural_methematics_statistics_f: 0,
+        natural_methematics_statistics_m: 0,
+        physical_sciences_f: 0,
+        physical_sciences_m: 0,
+        software_and_applications_development_f: 0,
+        software_and_applications_development_m: 0
+    }
     
     object.forEach(feature => {
         male += feature.properties.all_studies_m;
         female += feature.properties.all_studies_f;
-    });
-    
-    return [male, female];
+
+        Object.keys(students).forEach(key => {
+            students[key] += feature.properties[key];
+        })
+    })
+
+    return [male, female, students];
     }
 
     function calculatePercent(male, female) {
         if (male === 0 || female === 0) {
+            getNextPost(0, uni, postElement);
             return 0;
         }
         let percent = (female / (female + male)) * 100;
+        getNextPost(Math.round(percent), uni, postElement);
         return percent;
     }
 
@@ -261,8 +329,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (percent === number) {
                 clearInterval(this.id);
-                console.log(percent)
-                console.log(number)
             }
 
         }, 20)
@@ -275,9 +341,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (number === memeIndex) {
           number++;
         }
+        console.log(number)
+        console.log(memeIndex)
         meme.setAttribute("src", half1 + '/' + number.toString() + "_image.jpg");
         memeIndex = number;
-
-        let number2 = Math.floor(Math.random() * 3); 
+        console.log(memeIndex)
     }
 })

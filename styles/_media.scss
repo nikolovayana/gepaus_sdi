@@ -57,3 +57,27 @@
         margin: helpers.$center;
     }
 }
+
+@media (max-height: 625px) {
+    body {
+        overflow: visible !important;
+    }
+
+    .main-container {
+        height: calc(90% - helpers.$navbar-height - 80px);
+    }
+
+    .navbar {
+        display: none !important;
+    }
+
+    .arrow {
+        display: block !important;
+        width: 20px;
+        height: 20px;
+        margin: 0 auto;
+        color: white;
+        border: 1px solid white;
+        border-radius: 50%;
+    }
+}

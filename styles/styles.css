@@ -61,8 +61,25 @@ form button:hover {
   color: white;
 }
 
+.arrow-wrapper {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  z-index: 9999;
+}
+
+.arrow {
+  display: none;
+}
+.arrow div {
+  padding-left: 6px;
+}
+
 .form-container {
-  height: 220px;
+  height: 35%;
+  min-height: 220px;
   border-bottom: 1px solid white;
 }
 
@@ -95,7 +112,7 @@ form button {
 }
 .post {
   color: white;
-  font-size: 10px;
+  font-size: 8px;
 }
 
 .text {
@@ -106,7 +123,7 @@ form button {
   margin: 0 auto;
 }
 .meme-container img {
-  max-height: 220px;
+  max-height: 250px;
   object-fit: contain;
   object-position: center;
 }
@@ -195,6 +212,26 @@ form button {
     margin: 0 auto;
   }
 }
+@media (max-height: 625px) {
+  body {
+    overflow: visible !important;
+  }
+  .main-container {
+    height: calc(90% - 35px - 80px);
+  }
+  .navbar {
+    display: none !important;
+  }
+  .arrow {
+    display: block !important;
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+    color: white;
+    border: 1px solid white;
+    border-radius: 50%;
+  }
+}
 @font-face {
   font-family: Roboto;
   src: url(Roboto-Regular.ttf);
@@ -206,6 +243,7 @@ body {
   padding: 0;
   background-color: #212121;
   font-family: Roboto, ariel, sans-serif;
+  overflow: hidden;
 }
 
 .page-container {
@@ -221,7 +259,7 @@ body {
 
 .main-container {
   width: 100%;
-  height: calc(90% - 35px);
+  height: calc(100% - 35px);
   display: flex;
   padding-top: 20px;
   box-sizing: border-box;
@@ -233,6 +271,7 @@ body {
 
 .media-container {
   width: 40%;
+  max-width: 550px;
   border-right: 1px solid white;
   margin-left: 25px;
 }
