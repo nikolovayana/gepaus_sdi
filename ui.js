@@ -6,5 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("success")
             document.querySelector(".navbar").style.display = "flex";
         })
+        document.querySelector(".navbar").addEventListener("mouseout", () => {
+            console.log("success")
+            document.querySelector(".navbar").style.display = "none";
+        })
     }
-})
+    })

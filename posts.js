@@ -1,7 +1,11 @@
 function getNextPost(percent, university, element) {
     let female_percentage = percent.toString();
     if (university.value === 'none') {
-        element.innerHTML = `${female_percentage}`;
+        element.innerHTML = `
+            Did you know? Only ${female_percentage}% of STEM students across universities are women. 💡 
+            It’s time to change that – pick a university and imagine yourself leading the way! 🚀 
+            #GirlsInSTEM #FutureIsFemale
+        `;
         return;
     }
     let university_name = university.options[university.selectedIndex].text;

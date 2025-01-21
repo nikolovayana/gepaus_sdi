@@ -68,7 +68,9 @@
     }
 
     .navbar {
-        display: none !important;
+        display: none;
+        z-index: 9999;
+        position: fixed;
     }
 
     .arrow {

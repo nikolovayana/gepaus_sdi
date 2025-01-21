@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     const map = L.map('map').setView([47.5, 13.5], 6); // Center Austria
-    let percent = 0;
-    let memeIndex = 0;
-    let clickedLayer;
-    let isOptionsCreated = false;
-    const select = document.querySelector('#option');
-    const uni = document.querySelector('#university');
-    const postElement = document.querySelector(".text");
+    let percent = 0; // Will contain the female percentage
+    let memeIndex = 0; // Will contain the last meme displayed
+    let clickedLayer; // Will contain the point which is clicked on the map
+    let isOptionsCreated = false; // Ensures that the select options will be created only once
+    const select = document.querySelector('#option'); // Semesters dropdown
+    const uni = document.querySelector('#university'); // Universities dropdown
+    const postElement = document.querySelector(".text"); // Posts placeholder
     
     // Define the WFS URL
     const wfsUrl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT24/wfs';
@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
         //     maxZoom: 19
         // }).addTo(map);
         
-        L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.{ext}', {
+    // Add the base layer of the map    
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.{ext}', {
       minZoom: 0,
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -29,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //   ext: 'png'
     // }).addTo(map);
     
+    // Define the WFS url parameters
     const wfsParams = {
         service: 'WFS',
         version: '1.1.0',
@@ -90,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ctx.save();
                 const fontSize = (height / 100).toFixed(2); // Adjust font size
                 ctx.font = `${fontSize}em sans-serif`;
-                ctx.fillStyle = "white";
+                ctx.fillStyle = "#ff6384";
                 ctx.textBaseline = 'middle';
     
                 const text = percent + "%"; // Your central text
@@ -337,14 +339,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function getNextMeme() {
         let meme = document.querySelector("#meme");
         let half1 = meme.getAttribute("src").split("/")[0];
-        let number = Math.floor(Math.random() * 25);
+        let number = Math.floor(Math.random() * 22);
         if (number === memeIndex) {
           number++;
         }
-        console.log(number)
-        console.log(memeIndex)
+
         meme.setAttribute("src", half1 + '/' + number.toString() + "_image.jpg");
         memeIndex = number;
-        console.log(memeIndex)
     }
 })
