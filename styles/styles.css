@@ -9,18 +9,16 @@
   align-items: center;
 }
 
-form select, form button {
-  width: 300px;
-  height: 35px;
-  border: none;
-  border-radius: 10px;
-  padding-left: 5px;
-}
-
 form button:hover {
   color: white;
   background: linear-gradient(to right, #212121, #999);
   box-shadow: 5px 5px 20px 0;
+  cursor: pointer;
+}
+
+form select:hover {
+  border: 1px solid white;
+  opacity: 0.5;
   cursor: pointer;
 }
 
@@ -50,42 +48,25 @@ form button:hover {
   transition: 0.3s;
 }
 
-.active {
-  background-color: #212121;
-}
-.active a {
-  transform: scale(1.2);
-}
-
 .material-icons {
   color: white;
 }
 
-.arrow-wrapper {
-  width: 100%;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  position: fixed;
-  z-index: 9998;
-}
-
-.arrow {
+.logo {
   display: none;
-}
-.arrow div {
-  padding-left: 6px;
 }
 
 .form-container {
   height: 35%;
   min-height: 220px;
   border-bottom: 1px solid white;
+  padding: 0 30px;
 }
 
 form {
-  width: 300px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 form div {
   color: white;
@@ -95,19 +76,24 @@ form p {
   color: white;
 }
 form select {
-  background-color: #d3d3d3;
-}
-form select:hover {
-  border: 1px solid white;
-  opacity: 0.5;
-}
-form select option {
+  width: 100%;
+  max-width: 500px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  padding-left: 5px;
   background-color: #d3d3d3;
 }
 form select option:hover {
   cursor: pointer;
 }
 form button {
+  width: 100%;
+  max-width: 500px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  padding-left: 5px;
   background-color: #d3d3d3;
 }
 .post {
@@ -169,7 +155,11 @@ form button {
   margin: auto 0;
 }
 
-@media (max-width: 670px) {
+@media (max-width: 540px) {
+  .media-container {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
   .doughnut-container {
     margin: 0 auto;
   }
@@ -181,35 +171,32 @@ form button {
   }
 }
 @media (max-width: 980px) {
+  .main-container {
+    position: relative;
+  }
   .media-container {
-    display: none;
-  }
-  .media-responsive {
-    display: flex !important;
+    position: absolute;
     z-index: 9999;
-    position: fixed;
-    background-color: white;
+    background-color: #212121;
+    margin-left: 0 !important;
     height: 100%;
-    width: 300px;
+    opacity: 1;
+    transform: translate(0);
+    transition: 0.5s ease-in-out;
+  }
+  .hidden {
+    opacity: 0;
+    transform: translate(-100%);
   }
   .charts-container {
     margin: 0 auto;
   }
-}
-@media (min-width: 1200px) {
-  form {
-    width: 450px;
+  .logo {
+    display: block;
   }
-  form select {
-    min-width: 450px;
-    width: 90%;
-  }
-  form button {
-    min-width: 450px;
-    width: 90%;
-  }
-  .charts-container {
-    margin: 0 auto;
+  .logo:hover {
+    cursor: pointer;
+    transform: rotate(360deg, 1s);
   }
 }
 @media (max-height: 625px) {
@@ -220,9 +207,10 @@ form button {
     height: calc(90% - 35px - 80px);
   }
   .navbar {
-    display: none;
     z-index: 9999;
     position: fixed;
+    opacity: 0;
+    transition: 0.3s ease;
   }
   .arrow {
     display: block !important;
@@ -250,6 +238,8 @@ body {
 
 .page-container {
   height: 100%;
+  max-width: 1630px;
+  margin: 0 auto;
 }
 
 .navbar {
@@ -267,13 +257,10 @@ body {
   box-sizing: border-box;
 }
 
-.media-responsive {
-  display: none;
-}
-
 .media-container {
   width: 40%;
   max-width: 550px;
+  min-width: 350px;
   border-right: 1px solid white;
   margin-left: 25px;
 }

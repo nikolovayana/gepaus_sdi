@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const select = document.querySelector('#option'); // Semesters dropdown
     const uni = document.querySelector('#university'); // Universities dropdown
     const postElement = document.querySelector(".text"); // Posts placeholder
-    
+    const media = document.querySelector(".media-container"); // The media container so it can controlled for smaller screens
+
     // Define the WFS URL
     const wfsUrl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT24/wfs';
     
@@ -38,7 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
         typeName: '',
         outputFormat: 'application/json', // Request GeoJSON format
     };
-    
+
+    // Fetch the data on initial load
     fetchData(wfsParams, select.value);
     
     select.onchange = function() {
@@ -179,6 +181,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
         barChart.update();
         getNextMeme();
+        if (window.innerWidth < 980) {
+            media.classList.add("hidden");
+        }
     }
     
     function fetchData(params, typeName){
@@ -246,14 +251,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 uni.onchange = function() {
                     if (this.value === 'none') {
-                        updateCharts(undefined, male, female);
+                        updateCharts(students, male, female);
                         if (clickedLayer) {
                             clickedLayer.closePopup();
                             clickedLayer = undefined;
                         }
                         return;
                     }
-                    updateCharts(data.features[Number(this.value)].properties, undefined, undefined);
+                    updateCharts(data.features[Number(this.value)].properties);
                     const layers = wfsLayer.getLayers();
                     layers[Number(this.value)].openPopup();
                     if (clickedLayer) {

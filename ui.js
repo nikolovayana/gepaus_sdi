@@ -1,31 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const navbar = document.querySelector(".navbar");
+    const media = document.querySelector(".media-container");
     if (window.innerHeight < 615) {
-        document.querySelector(".navbar").style.display = "none";
-        document.querySelector(".arrow").addEventListener("mouseover", () => {
-            console.log("success")
-            document.querySelector(".navbar").style.display = "flex";
-        })
-        document.querySelector(".navbar").addEventListener("mouseout", () => {
-            console.log("success")
-            document.querySelector(".navbar").style.display = "none";
-        })
+        toggleNavbar();
     }
-    window.addEventListener('resize', (event) => {
-        console.log(event.type)
+    window.addEventListener('resize', () => {
         if (window.innerHeight < 615) {
-            document.querySelector(".navbar").style.display = "none";
-            document.querySelector(".arrow").addEventListener("mouseover", () => {
-                console.log("success")
-                document.querySelector(".navbar").style.display = "flex";
-            })
-            document.querySelector(".navbar").addEventListener("mouseout", () => {
-                console.log("success")
-                document.querySelector(".navbar").style.display = "none";
-            })
+            navbar.style.opacity = "0";
+            toggleNavbar();
         }
         else {
-            document.querySelector(".navbar").style.display = "flex";
+            navbar.style.opacity = "1";
         }
 
+        if (screen.width < 980) {
+            media.classList.add("hidden");
+        }
     })
+
+    if (window.innerWidth < 980) {
+        media.classList.add("hidden");
+    }
+
+    document.querySelector(".logo").addEventListener("click", () => {
+        media.classList.toggle("hidden");
+
     })
+
+    function toggleNavbar() {
+        navbar.addEventListener("mouseenter", () => {
+            document.querySelector(".navbar").style.opacity = "1";
+        })
+        navbar.addEventListener("mouseleave", () => {
+            navbar.style.opacity = "0";          
+        })
+    }
+})

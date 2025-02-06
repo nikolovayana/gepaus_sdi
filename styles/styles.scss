@@ -24,13 +24,15 @@ body {
 
 .page-container {
     height: 100%;
+    max-width: 1630px;
+    margin: helpers.$center;
 }
 
 .navbar {
     display: flex;
     width: 100%;
     height: helpers.$navbar-height;
-    background: linear-gradient(black , black, #212121);
+    background: linear-gradient(black , black, helpers.$main_color);
 }
 
 .main-container {
@@ -41,13 +43,10 @@ body {
     box-sizing: border-box;
 }
 
-.media-responsive {
-    display: none;
-}
-
 .media-container {
     width: 40%;
     max-width: 550px;
+    min-width: 350px;
     border-right: 1px solid white;
     margin-left: 25px;
 }

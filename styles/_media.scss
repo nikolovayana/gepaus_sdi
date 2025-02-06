@@ -3,7 +3,12 @@
 @use 'charts';
 @use 'map';
 
-@media (max-width: 670px) {
+@media (max-width: 540px) {
+    .media-container {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    
     .doughnut-container {
         margin: 0 auto;
     }
@@ -19,44 +24,59 @@
 }
 
 @media (max-width: 980px) {
+    .main-container {
+        position: relative;
+    }
 
     .media-container {
-        display: none;
-    }
-
-    .media-responsive {
-        display: flex !important;
+        position: absolute;
         z-index: 9999;
-        position: fixed;
-        background-color: white;
+        background-color: helpers.$main_color;
+        margin-left: 0 !important;
         height: 100%;
-        width: 300px;
+        opacity: 1;
+        transform: translate(0);
+        transition: 0.5s ease-in-out;
+    }
+
+    .hidden {
+        opacity: 0;
+        transform: translate(-100%);
     }
 
     .charts-container {
         margin: helpers.$center;
     }
+
+    .logo {
+        display: block;
+
+        &:hover {
+            cursor: pointer;
+            transform: rotate(360deg, 1s);
+        }
+    }
 }
 
-@media (min-width: 1200px) {
-    form {
-        width: 450px;
+// @media (min-width: 1200px) {
+//     form {
+//         width: 450px;
         
-        select {
-            min-width: 450px;
-            width: 90%;
-        }
+//         select {
+//             min-width: 450px;
+//             width: 90%;
+//         }
 
-        button {
-            min-width: 450px;
-            width: 90%
-        }
-    }
+//         button {
+//             min-width: 450px;
+//             width: 90%
+//         }
+//     }
 
-    .charts-container {
-        margin: helpers.$center;
-    }
-}
+//     .charts-container {
+//         margin: helpers.$center;
+//     }
+// }
 
 @media (max-height: 625px) {
     body {
@@ -68,9 +88,10 @@
     }
 
     .navbar {
-        display: none;
         z-index: 9999;
         position: fixed;
+        opacity: 0;
+        transition: 0.3s ease;
     }
 
     .arrow {
