@@ -179,7 +179,7 @@ form button {
     opacity: 1;
   }
 }
-@media (max-width: 540px) {
+@media (max-width: 670px) {
   .media-container {
     min-width: 0 !important;
     width: 100% !important;

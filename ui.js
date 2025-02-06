@@ -6,17 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.innerWidth < 980) {
         media.classList.add("hidden");
     }
-    
+
     window.addEventListener('resize', () => {
         if (window.innerWidth < 980) {
             media.classList.add("hidden");
         }
 
-        if (window.innerWidth < 540) {
+        if (window.innerWidth < 670) {
             bar.style.display = 'none';
         }
 
-        if (window.innerWidth > 540) {
+        if (window.innerWidth > 670) {
             bar.style.display = 'block';
             doughnut.style.display = 'block';
         }
