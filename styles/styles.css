@@ -187,6 +187,9 @@ form button {
   .doughnut-container {
     margin: 0 auto;
   }
+  .bar-container {
+    display: none;
+  }
   .map-container {
     min-width: auto;
   }
