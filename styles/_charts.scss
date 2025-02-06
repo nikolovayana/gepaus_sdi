@@ -1,15 +1,18 @@
+@use "helpers";
+
 .charts-container {
     display: flex;
     justify-content: space-evenly;
     max-width: 600px;
     height: 40%;
-    margin-bottom: 200px
+    margin-bottom: 200px;
 }
 
 .doughnut-container {
     height: 220px;
     padding-top: 20px;
     padding-left: 20px;
+    animation: appear 1s;
 }
 
 .bar-container {
@@ -19,8 +22,32 @@
     height: 250px;
     margin: 0 auto;
     padding-top: 20PX;
+    animation: appear 1s;
 
     canvas {
         margin: auto 0;
+    }
+}
+
+.toggle {
+    display: none;
+    height: 35px;
+    width: 50px;
+    margin: 19px;
+    background-color: helpers.$select-color;
+    border: none;
+    opacity: 0.7;
+}
+
+.displayed {
+    display: none;
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }

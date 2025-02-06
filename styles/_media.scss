@@ -1,5 +1,4 @@
 @use 'helpers';
-
 @use 'charts';
 @use 'map';
 
@@ -10,17 +9,18 @@
     }
     
     .doughnut-container {
-        margin: 0 auto;
-    }
-
-    .bar-container {
-        display: none;
+        margin: helpers.$center;
     }
 
     .map-container {
         min-width: auto;
     }
 
+    .toggle {
+        position: absolute;
+        display: block;
+        align-self: left;
+    }
 }
 
 @media (max-width: 980px) {
@@ -58,26 +58,6 @@
     }
 }
 
-// @media (min-width: 1200px) {
-//     form {
-//         width: 450px;
-        
-//         select {
-//             min-width: 450px;
-//             width: 90%;
-//         }
-
-//         button {
-//             min-width: 450px;
-//             width: 90%
-//         }
-//     }
-
-//     .charts-container {
-//         margin: helpers.$center;
-//     }
-// }
-
 @media (max-height: 625px) {
     body {
         overflow: visible !important;
@@ -85,22 +65,5 @@
 
     .main-container {
         height: calc(90% - helpers.$navbar-height - 80px);
-    }
-
-    .navbar {
-        z-index: 9999;
-        position: fixed;
-        opacity: 0;
-        transition: 0.3s ease;
-    }
-
-    .arrow {
-        display: block !important;
-        width: 20px;
-        height: 20px;
-        margin: 0 auto;
-        color: white;
-        border: 1px solid white;
-        border-radius: 50%;
     }
 }
