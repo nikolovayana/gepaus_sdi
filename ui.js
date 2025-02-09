@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
         media.classList.add("hidden");
     }
 
+    if (window.innerWidth < 670) {
+        bar.style.display = "none";
+    }
+
     window.addEventListener('resize', () => {
         if (window.innerWidth < 980) {
             media.classList.add("hidden");
@@ -26,10 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
         media.classList.toggle("hidden");
     })
 
-    document.querySelector(".toggle").addEventListener("click", () => {
+    document.querySelector(".toggle").addEventListener("change", () => {
         if (bar.style.display === 'none') {
             bar.style.display = "block";
             doughnut.style.display = 'none';
+            console.log("executed")
         } else {
             bar.style.display = 'none';
             doughnut.style.display = 'block';

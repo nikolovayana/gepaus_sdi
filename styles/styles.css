@@ -180,13 +180,51 @@ form button {
 }
 
 .toggle {
-  display: none;
-  height: 35px;
-  width: 50px;
+  height: 20px;
+  width: 40px;
   margin: 19px;
+  display: none;
+}
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle .slider {
+  position: absolute;
+  border: 1px solid white;
+  border-radius: 24px;
+  width: 100%;
+  height: 100%;
+  background-color: #212121;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.toggle .slider::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background-color: grey;
+  border-radius: 50%;
+  left: -2px;
+  transition: 0.3s;
+}
+.toggle input:checked + .slider {
   background-color: #d3d3d3;
-  border: none;
-  opacity: 0.7;
+}
+.toggle input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+.toggle::after {
+  content: "bar chart";
+  white-space: nowrap;
+  position: absolute;
+  color: white;
+  left: 55px;
+  top: 5px;
+  font-size: 12px;
 }
 
 .displayed {
@@ -228,8 +266,7 @@ form button {
   }
   .toggle {
     position: absolute;
-    display: block;
-    align-self: left;
+    display: inline-block;
   }
 }
 @media (max-width: 980px) {
