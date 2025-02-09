@@ -3,6 +3,25 @@
 @use 'map';
 
 @media (max-width: 670px) {
+    .logo {
+        position: absolute;
+    }
+
+    .links-container {
+        
+        div {
+            width: 25px;
+
+            a {
+                display: none;
+            }
+        }
+    }
+    
+    .description {
+        display: none;
+    }
+
     .media-container {
         min-width: 0 !important;
         width: 100% !important;
@@ -54,13 +73,17 @@
         margin: helpers.$center;
     }
 
-    .logo {
+    .menu {
         display: block;
+        align-content: center;
 
         &:hover {
             cursor: pointer;
-            transform: rotate(360deg, 1s);
         }
+    }
+
+    .logo {
+        margin-left: 10px;
     }
 }
 
@@ -71,5 +94,11 @@
 
     .main-container {
         height: calc(90% - helpers.$navbar-height - 80px);
+    }
+}
+
+@media (max-width: 770px) {
+    .description{
+        display: none;
     }
 }

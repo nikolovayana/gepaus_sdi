@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
-    document.querySelector(".logo").addEventListener("click", () => {
+    document.querySelector(".menu").addEventListener("click", () => {
         media.classList.toggle("hidden");
     })
 

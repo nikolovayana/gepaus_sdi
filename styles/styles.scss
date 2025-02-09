@@ -33,6 +33,7 @@ body {
     width: 100%;
     height: helpers.$navbar-height;
     background: linear-gradient(black , black, helpers.$main_color);
+    position: relative;
 }
 
 .main-container {
@@ -46,7 +47,7 @@ body {
 .media-container {
     width: 40%;
     max-width: 550px;
-    min-width: 350px;
+    min-width: 360px;
     border-right: 1px solid white;
     margin-left: 25px;
 }

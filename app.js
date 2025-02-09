@@ -9,27 +9,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const postElement = document.querySelector(".text"); // Posts placeholder
     const media = document.querySelector(".media-container"); // The media container so it can controlled for smaller screens
 
-    // Define the WFS URL
-    const wfsUrl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT24/wfs';
-    
+    // Add the base layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19
         }).addTo(map);
-        
-    // Add the base layer of the map    
-    // L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.{ext}', {
-    //   minZoom: 0,
-    //   maxZoom: 19,
-    //   attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    //   ext: 'png'
-    // }).addTo(map);
 
-    // L.tileLayer('http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-    //   attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-    //   minZoom: 0,
-    //   maxZoom: 19,
-    // //   ext: 'png'
-    // }).addTo(map);
+    // Define the WFS URL
+    const wfsUrl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT24/wfs';
+    
+    // Define the WMS URL
+    const wmsUrl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT24/wms';
     
     // Define the WFS url parameters
     const wfsParams = {
@@ -40,18 +29,34 @@ document.addEventListener("DOMContentLoaded", () => {
         outputFormat: 'application/json', // Request GeoJSON format
     };
 
+    // Define WMS layer parameters
+    const wmsLayer = L.tileLayer.wms(wmsUrl, {
+        layers: 'IPSDI_WT24:Austria_boundaries — nuts_rg_01m_2024_3857', // Your layer name
+        format: 'image/png', // Use PNG for transparency support
+        transparent: true, // Enables transparency
+        version: '1.1.0', // WMS version
+        attribution: '&copy; ZGIS Geoserver'
+    });
+
+    // Add the WMS layer to the map. This highlights the Austria border. 
+    wmsLayer.addTo(map);
+
     // Fetch the data on initial load
     fetchData(wfsParams, select.value);
     
+    // Add event handler for the select field with the semesters
     select.onchange = function() {
+        // Close any open popups
         if (clickedLayer) {
             clickedLayer.closePopup();
             clickedLayer = undefined;
         }
-        uni.value = "none";
-        fetchData(wfsParams, this.value);
+        uni.value = "none"; // Adjust the university select field 
+        fetchData(wfsParams, this.value); // fetch data again with the new typeName
     };
 
+
+    // Display the data for all universities when the map is clicked
     map.on("click", () => {
         if (clickedLayer) {
             clickedLayer = undefined;
@@ -60,6 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
+
+    // Create Doughnut chart
     const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
     const doughnutChart = new Chart(doughnutCtx, {
         type: 'doughnut',
@@ -80,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 labels: {
                     color: 'white',
                 }
-                // display: false
             }
             }
         },
@@ -92,12 +98,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const ctx = chart.ctx;
     
                 ctx.save();
-                const fontSize = (height / 100).toFixed(2); // Adjust font size
+                const fontSize = (height / 100).toFixed(2);
                 ctx.font = `${fontSize}em sans-serif`;
                 ctx.fillStyle = "#ff6384";
                 ctx.textBaseline = 'middle';
     
-                const text = percent + "%"; // Your central text
+                const text = percent + "%"; // Placeholder for the percentage of female students
                 const textX = Math.round((width - ctx.measureText(text).width) / 2);
                 const textY = height / 2.5;
     
@@ -107,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }]
     })
     
+    // Create Bar chart
     const barCtx = document.getElementById('barChart').getContext('2d');
     const barChart = new Chart(barCtx, {
         type: 'bar',
@@ -115,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
             datasets: [
             {
                 label: 'Male Students',
-                data: [80, 55], // Male student counts (to be updated dynamically)
+                data: [80, 55], // Male student counts placeholder
                 backgroundColor: '#36a2eb',
                 borderColor: '#388E3C',
                 borderWidth: 1,
@@ -123,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             {
                 label: 'Female Students',
-                data: [20, 45], // Female student counts (to be updated dynamically)
+                data: [20, 45], // Female student counts placeholder
                 backgroundColor: '#ff6384',
                 borderColor: '#FFA000',
                 borderWidth: 1,
