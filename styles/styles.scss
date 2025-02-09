@@ -13,13 +13,16 @@
     font-weight: 400;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 body {
     height: 100vh;
     margin: 0;
     padding: 0;
     background-color: helpers.$main_color;
     font-family: Roboto, ariel, sans-serif;
-    overflow: hidden;
 }
 
 .page-container {

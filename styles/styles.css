@@ -156,7 +156,6 @@ form button {
   justify-content: space-evenly;
   max-width: 600px;
   height: 40%;
-  margin-bottom: 200px;
 }
 
 .doughnut-container {
@@ -170,7 +169,7 @@ form button {
   display: flex;
   justify-content: center;
   width: 70%;
-  height: 250px;
+  height: 215px;
   margin: 0 auto;
   padding-top: 20PX;
   animation: appear 1s;
@@ -302,9 +301,6 @@ form button {
   }
 }
 @media (max-height: 625px) {
-  body {
-    overflow: visible !important;
-  }
   .main-container {
     height: calc(90% - 35px - 80px);
   }
@@ -320,13 +316,16 @@ form button {
   src: url(Roboto-Regular.ttf);
   font-weight: 400;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   height: 100vh;
   margin: 0;
   padding: 0;
   background-color: #212121;
   font-family: Roboto, ariel, sans-serif;
-  overflow: hidden;
 }
 
 .page-container {

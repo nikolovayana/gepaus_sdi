@@ -83,10 +83,6 @@
 }
 
 @media (max-height: 625px) {
-    body {
-        overflow: visible !important;
-    }
-
     .main-container {
         height: calc(90% - helpers.$navbar-height - 80px);
     }
