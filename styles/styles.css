@@ -189,6 +189,8 @@ form button {
   }
   .bar-container {
     display: none;
+    width: 350px;
+    translate: 0 40px;
   }
   .map-container {
     min-width: auto;
