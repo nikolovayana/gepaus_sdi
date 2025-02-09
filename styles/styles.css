@@ -211,9 +211,6 @@ form button {
   .links-container div a {
     display: none;
   }
-  .description {
-    display: none;
-  }
   .media-container {
     min-width: 0 !important;
     width: 100% !important;
@@ -275,9 +272,10 @@ form button {
     height: calc(90% - 35px - 80px);
   }
 }
-@media (max-width: 770px) {
+@media (max-width: 785px) {
   .description {
-    display: none;
+    margin-top: 33px;
+    margin-left: 47px;
   }
 }
 @font-face {
