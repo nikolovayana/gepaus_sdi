@@ -27,16 +27,14 @@ body {
 
 .page-container {
     height: 100%;
-    max-width: 1630px;
+    // max-width: 1630px;
     margin: helpers.$center;
 }
 
 .navbar {
-    display: flex;
     width: 100%;
     height: helpers.$navbar-height;
     background: linear-gradient(black , black, helpers.$main_color);
-    position: relative;
 }
 
 .main-container {
@@ -45,6 +43,8 @@ body {
     display: flex;
     padding-top: 20px;
     box-sizing: border-box;
+    max-width: helpers.$max-width;
+    margin: helpers.$center;
 }
 
 .media-container {

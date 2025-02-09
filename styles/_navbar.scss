@@ -1,5 +1,13 @@
 @use 'helpers';
 
+.content {
+    display: flex;
+    position: relative;
+    height: 100%;
+    max-width: helpers.$max-width;
+    margin: helpers.$center;
+}
+
 .links-container {
     @extend %max;
     display: flex;

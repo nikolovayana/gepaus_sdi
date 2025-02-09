@@ -3,7 +3,7 @@
 .charts-container {
     display: flex;
     justify-content: space-evenly;
-    max-width: 600px;
+    // max-width: 600px;
     height: 40%;
 }
 
@@ -17,10 +17,9 @@
 .bar-container {
     display: flex;
     justify-content: center;
-    width: 70%;
+    width: 360px;
     height: 215px;
-    margin: 0 auto;
-    padding-top: 20PX;
+    padding-top: 20px;
     animation: appear 1s;
 
     canvas {

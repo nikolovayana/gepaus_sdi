@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (window.innerWidth > 670) {
-            bar.style.display = 'block';
-            doughnut.style.display = 'block';
+            bar.style.display = 'flex';
+            doughnut.style.display = 'flex';
         }
     })
 
@@ -32,12 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector(".toggle").addEventListener("change", () => {
         if (bar.style.display === 'none') {
-            bar.style.display = "block";
+            bar.style.display = "flex";
             doughnut.style.display = 'none';
             console.log("executed")
         } else {
             bar.style.display = 'none';
-            doughnut.style.display = 'block';
+            doughnut.style.display = 'flex';
         }
     })
 })
